@@ -1,0 +1,36 @@
+#!/bin/bash 
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --gpus-per-node=1
+#SBATCH --job-name=download_weight
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=01:00:00
+#SBATCH --output=download_weight-%j.out
+
+set -e 
+
+PROJECT_DIR="$PWD"
+
+HF_TOKEN="your_token_here"
+
+export IMAGE=${PROJECT_DIR}/cosmos.sif
+
+WEIGHTS_DIR=/scratch-shared/${USER}/cosmos-weights
+
+rm -rf ${WEIGHTS_DIR}
+
+# Create persistent directory if it doesn't exist
+mkdir -p ${WEIGHTS_DIR}
+
+# Create symbolic link
+ln -s ${WEIGHTS_DIR}
+
+# Check if HF_TOKEN is provided as environment variable
+if [ -z "$HF_TOKEN" ]; then
+    echo "Error: HF_TOKEN environment variable not set"
+    echo "Please set it before running: export HF_TOKEN=your_token_here"
+    exit 1
+fi
+
+apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} bash download_weight.sh "$HF_TOKEN" "${WEIGHTS_DIR}"

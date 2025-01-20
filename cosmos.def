@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:24.10-py3
+
+%files
+    cosmos1 /workspace/cosmos1
+    README.md /workspace/
+    ATTRIBUTIONS.md /workspace/
+    requirements.txt /workspace/
+
+%post
+    curl -fsSL https://code-server.dev/install.sh | sh
+    apt-get update && apt-get install -y ffmpeg
+    rm -rf /var/lib/apt/lists/*
+    pip install --no-cache-dir -r /workspace/requirements.txt
+
+%environment
+    export WORKDIR=/workspace
+
+%runscript
+    exec /bin/bash

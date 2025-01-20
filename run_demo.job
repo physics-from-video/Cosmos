@@ -1,0 +1,28 @@
+#!/bin/bash 
+#SBATCH --partition=gpu_h100
+#SBATCH --gpus=1
+#SBATCH --gpus-per-node=1
+#SBATCH --job-name=run_text2world
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=00:55:00
+#SBATCH --output=run_text2world-%j.out
+
+set -e 
+
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
+
+PROJECT_DIR="$PWD"
+
+export IMAGE=${PROJECT_DIR}/cosmos.sif
+
+WEIGHTS_DIR=${PROJECT_DIR}/cosmos-weights
+
+
+apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} \
+python cosmos1/models/diffusion/inference/text2world.py \
+    --checkpoint_dir ${WEIGHTS_DIR}/ \
+    --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Text2World \
+    --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/text2world.jsonl \
+    --video_save_folder outputs/Cosmos-1.0-Diffusion-7B-Text2World \
+    --offload_prompt_upsampler
