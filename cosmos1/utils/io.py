@@ -14,6 +14,7 @@
 # limitations under the License.
 
 import json
+import os
 from io import BytesIO
 from typing import Dict, List
 
@@ -71,6 +72,8 @@ def load_from_fileobj(filepath: str, format: str = "mp4", mode: str = "rgb", **k
     Returns:
         tuple: A tuple containing an array of video frames and metadata about the video.
     """
+    if "${USER}" in filepath:
+        filepath = os.path.expandvars(filepath)
     with open(filepath, "rb") as f:
         value = f.read()
     with BytesIO(value) as f:

@@ -72,6 +72,8 @@ def resize_image(image: Image.Image, max_size: int = 1024) -> Image.Image:
 
 
 def prepare_dialog(image_or_video_path: str) -> list[dict]:
+    if "${USER}" in image_or_video_path:
+        image_or_video_path = os.path.expandvars(image_or_video_path)
     if image_or_video_path.endswith(".mp4"):
         video_np, _ = load_from_fileobj(image_or_video_path, format="mp4")
         image_frame = video_np[-1]

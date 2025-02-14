@@ -18,6 +18,7 @@ import importlib
 from contextlib import contextmanager
 from typing import List, NamedTuple, Optional, Tuple
 
+import os
 import einops
 import imageio
 import numpy as np
@@ -712,6 +713,8 @@ def check_input_frames(input_path: str, required_frames: int) -> bool:
         return True  # Let the pipeline handle image loading
     # For video input
     try:
+        if "${USER}" in input_path:
+            input_path = os.path.expandvars(input_path)
         vid = imageio.get_reader(input_path, "ffmpeg")
         frame_count = vid.count_frames()
 

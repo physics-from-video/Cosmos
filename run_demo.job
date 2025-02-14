@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=18
 #SBATCH --time=00:55:00
-#SBATCH --output=run_text2world-%j.out
+#SBATCH --output=./logs/run_text2world-%j.out
 
 set -e 
 
@@ -19,10 +19,25 @@ export IMAGE=${PROJECT_DIR}/cosmos.sif
 WEIGHTS_DIR=${PROJECT_DIR}/cosmos-weights
 
 
+# apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} \
+# python cosmos1/models/diffusion/inference/text2world.py \
+#     --checkpoint_dir ${WEIGHTS_DIR}/ \
+#     --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Text2World \
+#     --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/text2world.jsonl \
+#     --video_save_folder outputs/Cosmos-1.0-Diffusion-7B-Text2World \
+#     --offload_prompt_upsampler
+
+PROMPT="A sleek, humanoid robot stands in a vast warehouse filled with neatly stacked cardboard boxes on industrial shelves. \
+The robot's metallic body gleams under the bright, even lighting, highlighting its futuristic design and intricate joints. \
+A glowing blue light emanates from its chest, adding a touch of advanced technology. The background is dominated by rows of boxes, \
+suggesting a highly organized storage system. The floor is lined with wooden pallets, enhancing the industrial setting. \
+The camera remains static, capturing the robot's poised stance amidst the orderly environment, with a shallow depth of \
+field that keeps the focus on the robot while subtly blurring the background for a cinematic effect."
+
 apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} \
 python cosmos1/models/diffusion/inference/text2world.py \
     --checkpoint_dir ${WEIGHTS_DIR}/ \
     --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Text2World \
-    --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/text2world.jsonl \
-    --video_save_folder outputs/Cosmos-1.0-Diffusion-7B-Text2World \
-    --offload_prompt_upsampler
+    --prompt "$PROMPT" \
+    --offload_prompt_upsampler \
+    --video_save_name Cosmos-1.0-Diffusion-7B-Text2World

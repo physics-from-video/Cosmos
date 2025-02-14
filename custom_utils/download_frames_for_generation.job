@@ -1,0 +1,20 @@
+#!/bin/bash 
+
+#SBATCH --partition=gpu_a100
+#SBATCH --gpus=1
+#SBATCH --gpus-per-node=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=01:00:00
+#SBATCH --output=%x-%j.out
+
+set -e 
+
+export IMAGE=/home/${USER}/Cosmos/cosmos.sif
+
+SCRATCH_DIR=/scratch-shared/${USER}
+
+apptainer exec -B ${SCRATCH_DIR}:${SCRATCH_DIR} --nv ${IMAGE} \
+python custom_utils/upload_download_frames_for_gen.py \
+--mode download --username physics-from-video --repo_name frames_for_generation \
+--token ${YOUR_HUGGINGFACE_TOKEN} --output_dir ${SCRATCH_DIR}/frames_for_generation
