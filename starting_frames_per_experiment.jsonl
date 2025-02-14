@@ -1,0 +1,31 @@
+{"falling_ball": ["frames_for_generation/falling_ball_09_10_2024/video_0_fps30/frame_160.png"]}
+{"double_pendulum": ["frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_40.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_51.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_50.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_54.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_33.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_32.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_60.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_58.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_31.png", "frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_59.png"]}
+{
+    "holonomic_pendulum": [
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_66.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_70.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_74.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_73.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_68.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_67.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_78.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_71.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_79.png",
+      "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_65.png"
+    ]
+}
+{
+    "non_holonomic_pendulum": [
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_160.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_161.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_163.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_156.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_165.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_159.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_164.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_155.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_158.png",
+      "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_162.png"
+    ]
+  }
+  {"projectile": ["/scratch-shared/${USER}/frames_for_generation/projectile_24_01_2025/video_0_fps30_cropped/frame_25.png"]}
