@@ -1,0 +1,70 @@
+#!/bin/bash 
+#SBATCH --partition=gpu_h100
+#SBATCH --gpus=1
+#SBATCH --gpus-per-node=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=01:20:00
+#SBATCH --output=./logs/%x-%j.out
+
+set -e 
+
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
+
+PROJECT_DIR="$PWD"
+
+IMAGE=${PROJECT_DIR}/cosmos.sif
+
+WEIGHTS_DIR=${PROJECT_DIR}/cosmos-weights
+
+IMAGES_PATH=/scratch-shared/${USER}/frames_for_generation
+# VIDEO_PATH=/scratch-shared/${USER}/download_videos
+
+# SEED=1042
+# NUM_INPUT_FRAMES=1
+
+apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${IMAGES_PATH}:${IMAGES_PATH} --nv ${IMAGE} \
+python cosmos1/models/diffusion/inference/video2world.py \
+    --checkpoint_dir ${WEIGHTS_DIR}/ \
+    "$@"
+
+
+# apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${IMAGES_PATH}:${IMAGES_PATH} --nv ${IMAGE} \
+# python cosmos1/models/diffusion/inference/video2world.py \
+    # --checkpoint_dir ${WEIGHTS_DIR}/ \
+    # --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Video2World \
+    # --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/falling_ball_regular_wo_ps.jsonl \
+    # --video_save_folder falling_ball_regular_wo_ps/Cosmos-1.0-Diffusion-7B-Video2World_wo_ps/seed_${SEED} \
+    # --disable_prompt_upsampler \
+    # --num_input_frames 1 \
+    # --seed ${SEED}
+
+# apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${IMAGES_PATH}:${IMAGES_PATH} --nv ${IMAGE} \
+# python cosmos1/models/diffusion/inference/video2world.py \
+#     --checkpoint_dir ${WEIGHTS_DIR}/ \
+#     --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Video2World \
+#     --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/falling_ball_regular_ps.jsonl \
+#     --video_save_folder falling_ball_regular_ps/Cosmos-1.0-Diffusion-7B-Video2World_ps/seed_${SEED} \
+#     --offload_prompt_upsampler \
+#     --num_input_frames 1 \
+#     --seed ${SEED}
+
+# apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${VIDEO_PATH}:${VIDEO_PATH} --nv ${IMAGE} \
+# python cosmos1/models/diffusion/inference/video2world.py \
+#     --checkpoint_dir ${WEIGHTS_DIR}/ \
+#     --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Video2World \
+#     --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/falling_ball_regular_ps_mp4.jsonl \
+#     --video_save_folder falling_ball_regular_ps_mp4_frames_${NUM_INPUT_FRAMES}/Cosmos-1.0-Diffusion-7B-Video2World_ps/seed_${SEED} \
+#     --offload_prompt_upsampler \
+#     --num_input_frames ${NUM_INPUT_FRAMES} \
+#     --seed ${SEED}
+
+# apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${VIDEO_PATH}:${VIDEO_PATH} --nv ${IMAGE} \
+# python cosmos1/models/diffusion/inference/video2world.py \
+#     --checkpoint_dir ${WEIGHTS_DIR}/ \
+#     --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Video2World \
+#     --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/falling_ball_regular_wo_ps_mp4.jsonl \
+#     --video_save_folder falling_ball_regular_wo_ps_mp4_frames_${NUM_INPUT_FRAMES}/Cosmos-1.0-Diffusion-7B-Video2World_wo_ps/seed_${SEED} \
+#     --disable_prompt_upsampler \
+#     --num_input_frames ${NUM_INPUT_FRAMES} \
+#     --seed ${SEED}
