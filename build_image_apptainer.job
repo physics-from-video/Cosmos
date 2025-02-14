@@ -5,9 +5,9 @@
 #SBATCH --output=build_image_apptainer-%j.out
 
 set -e 
- 
+export APPTAINER_CACHEDIR=/scratch-shared/azadaianchuk/apptainer_cache
 # Create and set temporary directory in scratch space to avoid 'nodev' mount issues
-export SINGULARITY_TMPDIR=$(mktemp -d /tmp/${USER}XXXX)
- 
+export  APPTAINER_TMPDIR=$(mktemp -d /tmp/${USER}XXXX)
+
 # Note the necessary --fakeroot option
-apptainer build --fakeroot cosmos.sif cosmos.def
+apptainer build --fakeroot /scratch-shared/azadaianchuk/videogen/cosmos/cosmos.sif cosmos.def

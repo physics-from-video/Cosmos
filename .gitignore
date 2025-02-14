@@ -36,6 +36,7 @@ checkpoints/*
 # Other uncheckable file types
 *.zip
 *.exe
+*.out
 *.dll
 *.swp
 *.vscode
