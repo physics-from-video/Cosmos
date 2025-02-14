@@ -39,5 +39,10 @@ fi
 
 apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} bash download_weight.sh "$HF_TOKEN" "${WEIGHTS_DIR}"
 
-# Create symbolic link
-ln -s ${WEIGHTS_DIR}
+# Create symbolic link if it doesn't exist
+LINK_NAME=$(basename ${WEIGHTS_DIR})
+if [ ! -L "${LINK_NAME}" ]; then
+    ln -s ${WEIGHTS_DIR}
+else
+    echo "Symbolic link '${LINK_NAME}' already exists"
+fi
