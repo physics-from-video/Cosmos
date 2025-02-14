@@ -12,7 +12,7 @@ set -e
 
 export PYTHONPATH="${PWD}:${PYTHONPATH}"
 
-PROJECT_DIR="$PWD"
+PROJECT_DIR="/scratch-shared/azadaianchuk/videogen/cosmos"
 
 export IMAGE=${PROJECT_DIR}/cosmos.sif
 
@@ -22,7 +22,7 @@ WEIGHTS_DIR=${PROJECT_DIR}/cosmos-weights
 apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} --nv ${IMAGE} \
 python cosmos1/models/diffusion/inference/text2world.py \
     --checkpoint_dir ${WEIGHTS_DIR}/ \
-    --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Text2World \
-    --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/text2world.jsonl \
-    --video_save_folder outputs/Cosmos-1.0-Diffusion-7B-Text2World \
+    --diffusion_transformer_dir Cosmos-1.0-Diffusion-7B-Video2World \
+    --batch_input_path cosmos1/models/diffusion/assets/v1p0/batch_inputs/video2world_wo_ps.jsonl \
+    --video_save_folder outputs/Cosmos-1.0-Diffusion-7B-Video2World \
     --offload_prompt_upsampler
