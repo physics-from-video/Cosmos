@@ -27,6 +27,7 @@ This will create a `cosmos.sif` file containing the containerized environment.
 1. Generate a [Hugging Face access token](https://huggingface.co/settings/tokens)
    - Set the token permission to 'Read' (default is 'Fine-grained')
    - Keep your token secure
+   - Accept the usage of the https://huggingface.co/mistralai/Pixtral-12B-2409 on the Hugging Face website
 
 2. Configure the download script:
    - Open `download_weight.job`
