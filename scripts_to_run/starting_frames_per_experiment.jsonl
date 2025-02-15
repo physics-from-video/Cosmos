@@ -1,5 +1,6 @@
 {"falling_ball": ["/scratch-shared/${USER}/frames_for_generation/falling_ball_09_10_2024/video_0_fps30/frame_160.png"]}
-{"double_pendulum": ["/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_40.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_51.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_50.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_54.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_33.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_32.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_60.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_58.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_31.png", "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_59.png"]}
+{"projectile": ["/scratch-shared/${USER}/frames_for_generation/projectile_24_01_2025/video_0_fps30_cropped/frame_25.png"]}
+
 {
     "holonomic_pendulum": [
       "/scratch-shared/${USER}/frames_for_generation/holonomic_pendulum_06_11_2024/video_5_fps30/frame_66.png",
@@ -28,4 +29,16 @@
       "/scratch-shared/${USER}/frames_for_generation/non-holonomic-30_10_2024/video_1_fps30/frame_162.png"
     ]
   }
-  {"projectile": ["/scratch-shared/${USER}/frames_for_generation/projectile_24_01_2025/video_0_fps30_cropped/frame_25.png"]}
+  {"double_pendulum": [
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_40.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_51.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_50.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_54.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_33.png",
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_32.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_60.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_58.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_31.png", 
+    "/scratch-shared/${USER}/frames_for_generation/double_pendulum_20_11_2024/video_0_fps30/frame_59.png"
+    ]
+    }

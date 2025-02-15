@@ -97,8 +97,19 @@ The demo will:
 - Process inputs from `cosmos1/models/diffusion/assets/v1p0/batch_inputs/text2world.jsonl`
 - Save generated outputs to `outputs/Cosmos-1.0-Diffusion-7B-Text2World/`
 
-<div align="center"><b>🚧 Coming Soon 🚧</b></div>
 
-> **Note**: Additional features and improvements are coming soon! Stay tuned for updates.
+## Multi-frame Video Generation
 
 
+1. Link the frames_for_generation directory to the project directory
+e.g. in my case:
+
+```bash
+ln -s /scratch-shared/azadaianchuk/videogen/datasets/frames_for_generation /home/azadaianchuk/projects/videogen/Cosmos/frames_for_generation
+```
+
+2. Pull the changes in the dataset or regenerate the videos using `extract_videos.py` script
+e.g. newly added videos for COSMOS multi-frame: 
+https://huggingface.co/datasets/physics-from-video/frames_for_generation/blob/main/falling_ball_09_10_2024/video_0_fps30/videos/frame_160_9.mp4
+
+3. 
