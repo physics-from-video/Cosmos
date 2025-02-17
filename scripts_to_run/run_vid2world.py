@@ -5,17 +5,18 @@ import argparse
 import os
 
 
-N_RUNS = 10
+N_RUNS = 5
+
 CONDITIONING = "video" # "video"
 EXPERIMENT_NAME = "falling_ball" # "double_pendulum", "projectile", "non-holonomic_pendulum", "holonomic_pendulum"
-TYPE = "regular" # "enhanced"
+TYPE = "enhanced_with_upsampler" # "enhanced", "enhanced_with_upsampler"
 
 
 # Add argument parser
 parser = argparse.ArgumentParser(description='Run video2world inference with COSMOS model')
 parser.add_argument('--project_dir', 
-                   default="/scratch-shared/azadaianchuk/videogen/cosmos", # Change to your project directory
-                   help='Project directory containing cosmos.sif and cosmos-weights')
+                    default="/scratch-shared/azadaianchuk/videogen/cosmos", # Change to your project directory
+                    help='Project directory containing cosmos.sif and cosmos-weights')
 
 args = parser.parse_args()
 
@@ -68,8 +69,11 @@ for seed in SEED_LIST:
         "sample_single_frame_vid2world.job",
         "--diffusion_transformer_dir", "Cosmos-1.0-Diffusion-7B-Video2World",
         "--batch_input_path", f"cosmos1/models/diffusion/morpheus/{EXPERIMENT_NAME}_prompt_{TYPE}_conditioning_{CONDITIONING}.jsonl",
-        "--video_save_folder", f"outputs/{EXPERIMENT_NAME}_prompt_{TYPE}_conditioning_{CONDITIONING}/Cosmos-1.0-Diffusion-7B-Video2World/seed_{seed}",
+        "--video_save_folder", f"outputs/{EXPERIMENT_NAME}_prompt_{TYPE}_conditioning_{CONDITIONING}_cropped/Cosmos-1.0-Diffusion-7B-Video2World/seed_{seed}",
         "--disable_prompt_upsampler", # TODO: figure our if we could actually use it somehow
         "--num_input_frames", str(num_input_frames),
         "--seed", str(seed)
     ]) 
+
+
+    

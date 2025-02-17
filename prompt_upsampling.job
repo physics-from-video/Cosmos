@@ -1,0 +1,25 @@
+#!/bin/bash 
+#SBATCH --partition=gpu_h100
+#SBATCH --gpus=1
+#SBATCH --gpus-per-node=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --time=00:20:00
+#SBATCH --output=./logs/%j-%x.out
+
+set -e 
+
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
+
+PROJECT_DIR="/scratch-shared/azadaianchuk/videogen/cosmos"
+
+IMAGE=${PROJECT_DIR}/cosmos.sif
+
+WEIGHTS_DIR=${PROJECT_DIR}/cosmos-weights
+
+IMAGES_PATH=/scratch-shared/${USER}/frames_for_generation
+
+apptainer exec -B ${WEIGHTS_DIR}:${WEIGHTS_DIR} -B ${IMAGES_PATH}:${IMAGES_PATH} --nv ${IMAGE} \
+python cosmos1/models/diffusion/prompt_upsampler/text2world_prompt_upsampler_inference.py \
+    --checkpoint_dir ${WEIGHTS_DIR} \
+    "$@"
