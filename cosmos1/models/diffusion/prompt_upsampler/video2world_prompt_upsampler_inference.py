@@ -157,7 +157,7 @@ def parse_args():
 
 def main(args):
     pixtral = create_vlm_prompt_upsampler(os.path.join(args.checkpoint_dir, args.prompt_upsampler_dir))
-    if args.user_prompt:
+    if args.user_prompt != "":
         dialog = prepare_dialog_with_user_prompt(args.image_or_video_path, args.user_prompt)
     else:
         dialog = prepare_dialog(args.image_or_video_path)
