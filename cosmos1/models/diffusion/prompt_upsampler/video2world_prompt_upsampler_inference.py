@@ -93,6 +93,27 @@ Focus only on the content, no filler words or descriptions on the style. Never m
         }
     ]
 
+def prepare_dialog_with_user_prompt(image_or_video_path: str, user_prompt: str) -> list[dict]:
+    if image_or_video_path.endswith(".mp4"):
+        video_np, _ = load_from_fileobj(image_or_video_path, format="mp4")
+        image_frame = video_np[-1]
+        image = Image.fromarray(image_frame)
+    else:
+        image: Image.Image = Image.open(image_or_video_path)
+
+    image = resize_image(image, max_size=1024)
+    prompt = f"""\
+Your task is to transform a given prompt into a refined and concise video description, no more than 150 words.
+Focus only on the content, no filler words or descriptions on the style. Never mention things outside the video. Use the short caption to reference for a long caption {str(user_prompt)}:
+    """.strip()
+
+    return [
+        {
+            "role": "user",
+            "content": "[IMG]\n" + prompt,
+            "images": [image],
+        }
+    ]
 
 def run_chat_completion(pixtral: AutoRegressiveModel, dialog: list[dict], **inference_args) -> str:
     default_args = {
@@ -119,6 +140,7 @@ def parse_args():
     parser.add_argument(
         "--image_or_video_path", type=str, default="cosmos1/models/diffusion/assets/v1p0/video2world_input0.jpg"
     )
+    parser.add_argument("--user_prompt", type=str, default="", help="User prompt")
     parser.add_argument("--temperature", type=float, default=0.01, help="Inference temperature")
     parser.add_argument("--top_p", type=float, default=0.9, help="Top-p value for top-p sampling")
     parser.add_argument(
@@ -130,22 +152,15 @@ def parse_args():
         default="Pixtral-12B",
         help="Prompt upsampler weights directory relative to checkpoint_dir",
     )
-    parser.add_argument(
-        "--guardrail_dir",
-        type=str,
-        default="Cosmos-1.0-Guardrail",
-        help="Guardrail weights directory relative to checkpoint_dir",
-    )
     return parser.parse_args()
 
 
 def main(args):
-    guardrail_runner = guardrail_presets.create_text_guardrail_runner(
-        os.path.join(args.checkpoint_dir, args.guardrail_dir)
-    )
-
     pixtral = create_vlm_prompt_upsampler(os.path.join(args.checkpoint_dir, args.prompt_upsampler_dir))
-    dialog = prepare_dialog(args.image_or_video_path)
+    if args.user_prompt:
+        dialog = prepare_dialog_with_user_prompt(args.image_or_video_path, args.user_prompt)
+    else:
+        dialog = prepare_dialog(args.image_or_video_path)
     upsampled_prompt = run_chat_completion(
         pixtral,
         dialog,
@@ -154,11 +169,6 @@ def main(args):
         top_p=args.top_p,
         logprobs=False,
     )
-    is_safe = guardrail_presets.run_text_guardrail(upsampled_prompt, guardrail_runner)
-    if not is_safe:
-        log.critical("Upsampled text prompt is not safe.")
-        return
-
     log.info(f"Upsampled prompt: {upsampled_prompt}")
 
 
